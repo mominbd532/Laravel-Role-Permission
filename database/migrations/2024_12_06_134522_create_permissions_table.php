@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('permissions', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->unique()->index();
             $table->boolean('is_active')->default(1);
@@ -25,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('permissions', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('permissions');
     }
 };
