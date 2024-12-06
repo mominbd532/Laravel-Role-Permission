@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "5c6ec92c-4b33-4abe-8036-9092203c2e10",
+    "colName": "Role Permission",
+    "created": "2024-12-06T16:46:02.800Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "89daaee9-67f7-4d1c-a5c8-1f45f9302ab7",
+        "name": "Auth",
+        "containerId": "",
+        "created": "2024-12-06T16:46:13.127Z",
+        "sortNum": 10000
+      }
+    ]
+  }
+]
