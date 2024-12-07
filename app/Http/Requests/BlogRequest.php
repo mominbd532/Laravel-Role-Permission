@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoleUpdateRequest extends FormRequest
+class BlogRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,8 @@ class RoleUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string|max:100|unique:roles,name," . $this->name,
-            "permissions" => "required|array",
-            "permissions.*" => "required|numeric|exists:permissions,id",
+            'title' => 'required|string|max:225',
+            'description' => 'required|string',
         ];
     }
 }

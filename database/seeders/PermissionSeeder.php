@@ -15,13 +15,19 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             [
-                "name" => "All Blogs"
+                "name" => "view-blogs"
             ],
             [
-                "name" => "Blog Delete"
+                "name" => "view-blog"
             ],
             [
-                "name" => "Blog Edit"
+                "name" => "create-blog"
+            ],
+            [
+                "name" => "edit-blog"
+            ],
+            [
+                "name" => "delete-blog"
             ],
         ];
 

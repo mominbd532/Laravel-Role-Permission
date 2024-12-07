@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use App\Repositories\IUserRepository;
+use App\Http\Requests\BlogRequest;
+use App\Models\Blog;
+use App\Repositories\IBlogRepository;
 use Illuminate\Http\Request;
 
-class UserController extends ApiController
+class BlogController extends ApiController
 {
+    private IBlogRepository $blogRepository;
 
-    private IUserRepository $userRepository;
-
-    function __construct(IUserRepository $userRepository)
+    function __construct(IBlogRepository $blogRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->blogRepository = $blogRepository;
     }
 
     /**
@@ -26,7 +23,7 @@ class UserController extends ApiController
     {
         try {
 
-            return $this->showAll($this->userRepository->getUsers());
+            return $this->showAll($this->blogRepository->get());
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage(), 404);
         }
@@ -43,11 +40,10 @@ class UserController extends ApiController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserStoreRequest $request)
+    public function store(BlogRequest $request)
     {
-
         try {
-            return $this->showOne($this->userRepository->create($request->all()), 201);
+            return $this->showOne($this->blogRepository->create($request->all()), 201);
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage(), 403);
         }
@@ -56,10 +52,10 @@ class UserController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Blog $blog)
     {
         try {
-            return $this->showOne($this->userRepository->showUser($user));
+            return $this->showOne($this->blogRepository->show($blog));
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage(), 403);
         }
@@ -76,11 +72,10 @@ class UserController extends ApiController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(BlogRequest $request, Blog $blog)
     {
-
         try {
-            return $this->showOne($this->userRepository->update($user, $request->all()), 201);
+            return $this->showOne($this->blogRepository->update($blog, $request->all()), 201);
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage(), 403);
         }
