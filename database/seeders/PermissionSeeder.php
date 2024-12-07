@@ -13,23 +13,15 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = [
-            [
-                "name" => "view-blogs"
-            ],
-            [
-                "name" => "view-blog"
-            ],
-            [
-                "name" => "create-blog"
-            ],
-            [
-                "name" => "edit-blog"
-            ],
-            [
-                "name" => "delete-blog"
-            ],
+        $permissionNames = [
+            'view-blogs',
+            'view-blog',
+            'create-blog',
+            'edit-blog',
+            'delete-blog',
         ];
+
+        $permissions = array_map(fn($name) => ['name' => $name], $permissionNames);
 
         DB::table('permissions')->insert($permissions);
     }
