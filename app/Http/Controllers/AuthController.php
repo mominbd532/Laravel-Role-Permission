@@ -30,9 +30,7 @@ class AuthController extends ApiController
     public function login(LoginRequest $request)
     {
         try {
-         
-            $user = User::where('email', $request->email)->first();
-             
+              
             return $this->showOne($this->authRepository->login($request->all()));
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), 401);

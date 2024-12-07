@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Repositories\IUserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
+
+    private IUserRepository $userRepository;
+
+    function __construct(IUserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -52,27 +61,11 @@ class UserController extends ApiController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserUpdateRequest $request, string $id)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $user = User::findOrFail($id);
-        
-        if ($request->CHANGE_STATUS == 1) {
-            $user->is_active = $user->is_active == 1 ? 0 : 1;
-            $user->update();
-
-            return $this->showOne(new UserResource($user), 200);
-        }
 
         try {
-
-            $user->name = $request->name;
-            $user->save();
-
-            if ($request->roles) {
-                $user->roles()->sync($request->roles);
-            }
-
-            return $this->showOne(new UserResource($user), 200);
+            return $this->showOne($this->userRepository->update($user, $request->all()), 200);
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage(), 403);
         }
