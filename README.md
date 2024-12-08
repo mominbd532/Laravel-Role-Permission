@@ -1,66 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Role Permission Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a Laravel-based API designed to manage roles, permissions, and posts. It includes user authentication via Laravel Passport, role-based access control, and permission management for actions like creating, updating, deleting, and viewing posts.
 
-## About Laravel
+## Prerequisites
+Ensure the following are installed before setting up the project:
+- PHP 8.0 or higher
+- Composer
+- MySQL or any database supported by Laravel
+- Laravel 11.x
+- Docker (optional, for containerized environments)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Installation
+You can set up the project either manually or using Docker for a streamlined environment.
+### Option 1: Manual Setup
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **Clone the Repository**
+   Use the following commands to clone the project repository::
+ ```
+    git clone https://github.com/mominbd532/Laravel-Role-Permission.git
+    
+    cd Laravel-Role-Permission
+ ```
+2. **Install Dependencies**
+        Install the required PHP dependencies::
+ ```
+    composer install
+ ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+3. **Copy Environment File**
+     Copy the example environment file to create your .env file::
+```
+    cp .env.example .env
+ ```
+4. **Generate Application Key**
+  Generate the Laravel application key::
+ ```
+  php artisan key:generate
+ ```
+5. **Configure Database**
+    Edit the .env file with your database credentials::
+ ```env
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=your_database_name
+     DB_USERNAME=root
+     DB_PASSWORD=
+ ```
+Replace `your_database_name` with the actual database name.
+6. **Run Database Migrations**
+   Create the database tables by running:
+ ```
+    php artisan migrate
+ ```
+7. **Set Up Passport (API Authentication)**
+   Install Laravel Passport:
+ ```
+    php artisan passport:install
+ ```
+This will create the necessary encryption keys for Passport.
+8. **Seed Data (Optional)**
+   Populate the database with default roles, permissions, or other data:
+ ```
+    php artisan db:seed
+ ```
+9. **Start the Development Server**
+  Start the Laravel development server::
+ ```
+    php artisan serve
+ ```
 
-## Learning Laravel
+Access the API at http://127.0.0.1
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
+### Option 2: Docker Setup
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Step 1: Install Docker
+- [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
+- [Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
+- [Docker for Linux](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+#### Step 2: Clone the Repository
+Clone the project repository:
+```
+git clone https://github.com/mominbd532/Laravel-Role-Permission.git
+cd Laravel-Role-Permission
+```
+#### Step 3:Build and Start Docker Containers
+   Build and launch the containers in detached mode:
+ ```
+    docker compose build
+    dockercompose up -d
+ ```
+#### Step 4: Install Composer Dependencies Inside the Docker Container
+Enter the container and install PHP dependencies:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+bash
+Copy code
+:
+``` 
+     docker exec -it -u root role-permission-laravel-role-permission-laravel_role_permission-1
+ ```
+ Update Docker Port on .env file
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### Step 5: Accessing the API
+Once everything is set up, you should be able to access your API at `http://localhost:3456`.
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+## Usage
+You can now make API requests to the following endpoints (example routes):
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- `GET /api/v1/blogs` - View all posts
+- `POST /api/v1/blogs` - Create a new post
+- `GET /api/v1/posts/{id}` - View a single post
+- `PUT /api/v1/posts/{id}` - Update an existing post
 
-## Code of Conduct
+  Ensure you pass the appropriate `Authorization` token in the headers for API access.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### API Documents
+View the API Documentation:
 
-## Security Vulnerabilities
+#### Web Access:
+ Navigate to `/docs/api` in your browser.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### JSON Format:
 
-## License
+ Access the OpenAPI JSON documentation at `/docs/api.json`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Troubleshooting
+
+#### Permission Issues:
+Ensure the correct roles and permissions are assigned to users.
+#### Docker Issues: 
+Check container logs for detailed error information.
+
+--- 
